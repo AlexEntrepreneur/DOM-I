@@ -84,3 +84,15 @@ logo.setAttribute('src', siteContent["nav"]["img-src"]);
   loadElementContent(topContent, 'h4', ['features', 'about']);
   loadElementContent(topContent, 'p', ['features', 'about']);
 })();
+
+(function loadBottomSection() {
+  let contactTitle = document.querySelector('.contact h4');
+  let contactAddressLines = document.querySelectorAll('.contact p');
+  let footerText = document.querySelector('footer p');
+
+  contactTitle.textContent = siteContent['contact']['contact-h4'];
+  contactAddressLines[0].textContent = siteContent['contact']['address'];
+  contactAddressLines[1].textContent = siteContent['contact']['phone'];
+  contactAddressLines[2].textContent = siteContent['contact']['email'];
+  footerText.textContent = siteContent['footer']['copyright'];
+})();
