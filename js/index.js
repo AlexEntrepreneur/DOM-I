@@ -59,3 +59,28 @@ logo.setAttribute('src', siteContent["nav"]["img-src"]);
   siteHeadingBtn.textContent = siteContent['cta']['button'];
   siteHeadingImage.setAttribute('src', siteContent['cta']['img-src']);
 })();
+
+(function loadMiddleSectionContent() {
+  let topContent = document.querySelectorAll('.top-content .text-content');
+  let bottomContent = document.querySelectorAll('.bottom-content .text-content');
+  let middleImage = document.getElementById('middle-img');
+
+  function loadElementContent(element, selector, sectionNamesArray) {
+    for (let i = 0; i < element.length; i++) {
+      switch (selector) {
+        case 'h4':
+        element[i].querySelector(selector).textContent = siteContent['main-content'][`${sectionNamesArray[i]}-h4`];
+          break;
+        case 'p':
+          element[i].querySelector(selector).textContent = siteContent['main-content'][`${sectionNamesArray[i]}-content`];
+          break;
+      }
+    }
+  }
+
+  middleImage.setAttribute('src', siteContent['main-content']['middle-img-src']);
+  loadElementContent(bottomContent, 'h4', ['services', 'product', 'vision']);
+  loadElementContent(bottomContent, 'p', ['services', 'product', 'vision']);
+  loadElementContent(topContent, 'h4', ['features', 'about']);
+  loadElementContent(topContent, 'p', ['features', 'about']);
+})();
