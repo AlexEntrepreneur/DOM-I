@@ -43,10 +43,32 @@ logo.setAttribute('src', siteContent["nav"]["img-src"]);
 
 
 (function loadNavLinkContent() {
+  let headerNav = document.querySelector('header nav');
   let headerNavLinks = document.querySelectorAll('header nav a');
+
+  function createNewLink(textContent, placement) {
+    let newAnchor = document.createElement('a');
+    newAnchor.setAttribute('href', '#');
+    let newNavLink = newAnchor.cloneNode(true);
+    newNavLink.textContent = textContent;
+    newNavLink.setAttribute('style', 'color: darkseagreen;');
+    switch (placement) {
+      case 'append':
+      headerNav.appendChild(newNavLink);
+        break;
+      case 'prepend':
+      headerNav.prepend(newNavLink);
+        break;
+    }
+    return newNavLink;
+  }
+
+  let newLink1 = createNewLink('Test Link 1', 'prepend');
+  let newLink2 = createNewLink('Test Link 2', 'append');
 
   for (let i = 0; i < headerNavLinks.length; i++) {
     headerNavLinks[i].textContent = siteContent['nav'][`nav-item-${i + 1}`];
+    headerNavLinks[i].setAttribute('style', 'color: darkseagreen;');
   }
 })();
 
