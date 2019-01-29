@@ -39,4 +39,82 @@ const siteContent = {
 
 // Example: Update the img src for the logo
 let logo = document.getElementById("logo-img");
-logo.setAttribute('src', siteContent["nav"]["img-src"])
+logo.setAttribute('src', siteContent["nav"]["img-src"]);
+
+
+(function loadNavLinkContent() {
+  let headerNav = document.querySelector('header nav');
+  let headerNavLinks = document.querySelectorAll('header nav a');
+
+  function createNewLink(textContent, placement) {
+    let newAnchor = document.createElement('a');
+    newAnchor.setAttribute('href', '#');
+    let newNavLink = newAnchor.cloneNode(true);
+    newNavLink.textContent = textContent;
+    newNavLink.setAttribute('style', 'color: darkseagreen;');
+    switch (placement) {
+      case 'append':
+      headerNav.appendChild(newNavLink);
+        break;
+      case 'prepend':
+      headerNav.prepend(newNavLink);
+        break;
+    }
+    return newNavLink;
+  }
+
+  let newLink1 = createNewLink('Test Link 1', 'prepend');
+  let newLink2 = createNewLink('Test Link 2', 'append');
+
+  for (let i = 0; i < headerNavLinks.length; i++) {
+    headerNavLinks[i].textContent = siteContent['nav'][`nav-item-${i + 1}`];
+    headerNavLinks[i].setAttribute('style', 'color: darkseagreen;');
+  }
+})();
+
+(function loadHeaderSectionContent() {
+  let siteHeading = document.querySelector('.cta-text h1');
+  let siteHeadingBtn = document.querySelector('.cta-text button');
+  let siteHeadingImage = document.getElementById('cta-img');
+
+  siteHeading.textContent = siteContent['cta']['h1'];
+  siteHeadingBtn.textContent = siteContent['cta']['button'];
+  siteHeadingImage.setAttribute('src', siteContent['cta']['img-src']);
+})();
+
+(function loadMiddleSectionContent() {
+  let topContent = document.querySelectorAll('.top-content .text-content');
+  let bottomContent = document.querySelectorAll('.bottom-content .text-content');
+  let middleImage = document.getElementById('middle-img');
+
+  function loadElementContent(element, selector, sectionNamesArray) {
+    for (let i = 0; i < element.length; i++) {
+      switch (selector) {
+        case 'h4':
+        element[i].querySelector(selector).textContent = siteContent['main-content'][`${sectionNamesArray[i]}-h4`];
+          break;
+        case 'p':
+          element[i].querySelector(selector).textContent = siteContent['main-content'][`${sectionNamesArray[i]}-content`];
+          break;
+      }
+    }
+  }
+
+  middleImage.setAttribute('src', siteContent['main-content']['middle-img-src']);
+  loadElementContent(bottomContent, 'h4', ['services', 'product', 'vision']);
+  loadElementContent(bottomContent, 'p', ['services', 'product', 'vision']);
+  loadElementContent(topContent, 'h4', ['features', 'about']);
+  loadElementContent(topContent, 'p', ['features', 'about']);
+})();
+
+(function loadBottomSection() {
+  let contactTitle = document.querySelector('.contact h4');
+  let contactAddressLines = document.querySelectorAll('.contact p');
+  let footerText = document.querySelector('footer p');
+
+  contactTitle.textContent = siteContent['contact']['contact-h4'];
+  contactAddressLines[0].textContent = siteContent['contact']['address'];
+  contactAddressLines[1].textContent = siteContent['contact']['phone'];
+  contactAddressLines[2].textContent = siteContent['contact']['email'];
+  footerText.textContent = siteContent['footer']['copyright'];
+})();
